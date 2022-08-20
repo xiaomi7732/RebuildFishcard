@@ -5,9 +5,14 @@
 
 <div>There is a fish named: @FishName</div>
 
+<div>And it weights: @Weight lbs</div>
+
 @code {
 
     [Parameter]
     public string? FishName { get; set; }
 
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "w")]
+    public double? Weight { get; set; }
 }
