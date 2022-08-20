@@ -1,0 +1,13 @@
+@page "/Fishcard"
+@page "/Fishcard/{Fishname}"
+
+<h1>Hello Fishcard!</h1>
+
+<div>There is a fish named: @FishName</div>
+
+@code {
+
+    [Parameter]
+    public string? FishName { get; set; }
+
+}

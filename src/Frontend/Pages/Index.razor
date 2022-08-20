@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject NavigationManager _navigationManager
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +8,12 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<div @onclick=GoToFishcard>Go to fishcard</div>
+
+@code{
+    public void GoToFishcard()
+    {
+        _navigationManager.NavigateTo("/Fishcard/Salmon");
+    }
+}
