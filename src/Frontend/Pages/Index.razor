@@ -11,9 +11,19 @@ Welcome to your new app.
 
 <div @onclick=GoToFishcard>Go to fishcard</div>
 
-@code{
+@code { 
     public void GoToFishcard()
     {
-        _navigationManager.NavigateTo("/Fishcard/Salmon");
+        UriBuilder uriBuilder = new UriBuilder(_navigationManager.BaseUri){
+            Path = "/Fishcard/Crab",
+        };
+        string targetUri = _navigationManager.GetUriWithQueryParameters(
+            uriBuilder.Uri.AbsoluteUri,
+            new Dictionary<string, object?>
+            {
+                ["w"] = 200.1,
+            }
+        );
+        _navigationManager.NavigateTo(targetUri);
     }
 }
