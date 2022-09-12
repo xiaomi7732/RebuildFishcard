@@ -9,6 +9,8 @@ public partial class FishcardHome
         return base.OnInitializedAsync();
     }
 
+    public string? Keyword { get; set; }
+
     [Parameter]
     public string? FishName { get; set; }
 

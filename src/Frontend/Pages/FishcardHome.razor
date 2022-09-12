@@ -3,7 +3,9 @@
 <img src="images/fishcard_logo_v2_200.jpg" alt="A picture of fishcard" title="Hello fishcard!" />
 <div>💡 What fish are safe to eat during pregnancy?</div>
 
-<input placeholder="Search a fish by name" />
+<input placeholder="Search a fish by name" @bind="Keyword" @bind:event="oninput" />
+
+<div>@Keyword</div>
 
 <button>Search</button>
 <button>Clear</button>
