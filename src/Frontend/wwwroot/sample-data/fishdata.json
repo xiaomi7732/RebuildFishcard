@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Salmon",
+        "recommendation": 2
+    },
+    {
+        "name": "Halibut",
+        "recommendation": 1
+    },
+    {
+        "name": "Shark",
+        "recommendation": 0
+    }
+]
