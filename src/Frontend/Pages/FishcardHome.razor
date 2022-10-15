@@ -1,25 +1,32 @@
 @page "/"
-@using Fishcard.Contracts
-@inject DataService _dataService
+@using Models
 
 <img src="images/fishcard_logo_v2_200.jpg" alt="A picture of fishcard" title="Hello fishcard!" />
 <div>💡 What fish are safe to eat during pregnancy?</div>
 
-<input placeholder="Search a fish by name" @bind="Keyword" @bind:event="oninput" />
+<input placeholder="Search a fish by name" @bind="Keyword" @bind:event="oninput"
+    list="all_fish" />
 
 <div>@Keyword</div>
 
-<div>
-    <span>Result:</span>
-    @if (Result is not null && Result.Length > 0)
+<button @onclick="Search">Search</button>
+<button>Clear</button>
+
+@if (Result is not null)
+{
+    @foreach (FishItem fish in Result)
     {
-        foreach (FishItem fish in Result)
+        <div>@fish.Name</div>
+        <div>@fish.Recommendation</div>
+    }
+}
+
+<datalist id="all_fish">
+    @if(_allFish is not null)
+    {
+        @foreach (FishItem fish in _allFish)
         {
-            <div>@fish.Name</div>
-            <div>@fish.Recommendation</div>
+            <option value=@fish.Name />
         }
     }
-</div>
-
-<button @onclick=Search>Search</button>
-<button @onclick=Clear>Clear</button>
+</datalist>

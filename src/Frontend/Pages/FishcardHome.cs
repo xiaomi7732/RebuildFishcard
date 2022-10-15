@@ -1,49 +1,39 @@
-using Fishcard.Contracts;
+using Fishcard.Frontend.Services;
+using Fishcard.Models;
+using Microsoft.AspNetCore.Components;
 
 namespace Fishcard.Frontend.Pages;
 
 public partial class FishcardHome
 {
-    private List<FishItem>? _allFishItemCache;
-    protected async override Task OnInitializedAsync()
+    private FishItem[] _allFish;
+
+    [Inject]
+    public FishDataService FishDataService { get; private set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        _allFishItemCache = (await _dataService.GetFishItemsAsync(default)).OrderBy(fish => fish.Name).ToList();
+        _allFish = (await FishDataService.GetFishItemsAsync(default)).ToArray();
+        Console.WriteLine("Get fish item count: " + _allFish.Length);
     }
 
-    private string? _keyword;
-    public string? Keyword
+    public void Search()
     {
-        get { return _keyword; }
-        set
-        {
-            if (!string.Equals(_keyword, value, StringComparison.Ordinal))
-            {
-                _keyword = value;
-                Search();
-            }
-        }
-    }
-
-    public FishItem[]? Result { get; set; }
-
-    private void Search()
-    {
-        if (_allFishItemCache is null)
-        {
-            Result = null;
-            return;
-        }
-        if (string.IsNullOrEmpty(Keyword))
+        Console.WriteLine("Search for fish: " + Keyword);
+        if(string.IsNullOrEmpty(Keyword))
         {
             Result = null;
             return;
         }
 
-        Result = _allFishItemCache.Where(fish => fish.Name.Contains(Keyword, StringComparison.OrdinalIgnoreCase)).ToArray();
-    }
-
-    private void Clear()
-    {
+        Result = _allFish
+            .Where(f => f.Name.Contains(Keyword, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(f => f.Name)
+            .ToArray();
         Keyword = null;
     }
+
+    public FishItem[]? Result { get; private set; }
+
+    public string? Keyword { get; set; }
 }
