@@ -70,3 +70,7 @@ a {
 a:hover{
     text-decoration: underline;
 }
+
+:root{
+    --gap-normal: 8px;
+}

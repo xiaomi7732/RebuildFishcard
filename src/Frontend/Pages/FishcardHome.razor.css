@@ -7,4 +7,5 @@
 .button-list{
     display: flex;
     flex-direction: row;
+    margin-top: var(--gap-normal);
 }
